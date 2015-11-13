@@ -35,8 +35,8 @@ push @$Ids_branch, ($Ids_total * $Ids_distribution_percent->[3]);
 push @$Ids_branch, ($Ids_total * $Ids_distribution_percent->[4]);
 $A_cg = 5000;
 $A_cascode = 5;
-$A_CS = 1.2;
-$A_CD = 1;
+$A_cs = 1.2;
+$A_cd = 1;
 
 # calculation for M1
 $gm1 = compute_gm($Ids_branch->[1], $Vovs->[1]);
