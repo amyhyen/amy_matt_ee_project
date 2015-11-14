@@ -16,9 +16,6 @@
 .include /usr/class/ee114/hspice/ee114_hspice.sp
 
 * Defining Top level circuit parameters
-.param p_Cin = 220f
-.param p_CL  = 250f
-.param p_RL  = 20k
 .param W1_val = 11u
 .param L1_val = 2u
 .param W2_val = 25u
@@ -43,6 +40,8 @@
 .param R2_val = 25k
 .param R3_val = 252k
 .param R4_val = 1010k
+.param Vbias_n_val = -0.875248
+.param Vbias_p_val = -0.562376
 
 * defining the supply voltages
 vdd n_vdd 0 2.5
@@ -91,8 +90,8 @@ MN10   n_vdd    n_z      n_out    0    nmos114 w='W10_val'  l='L10_val'
 *** Your Bias Circuitry goes here ***
 * TBD: ideal current source for now
 * TBD: fill in the bias current value from calculating Ids through M3 and M1,6,9 in saturation
-Vbn n_nbias n_vss dc=?
-VBp n_pbias n_vss dc=?
+Vbn n_nbias n_vss dc='Vbias_n_val'
+VBp n_pbias n_vss dc='Vbias_p_val'
 
 *** defining the analysis ***
 .op

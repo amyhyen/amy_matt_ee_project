@@ -143,6 +143,10 @@ printf (".param R2_val = %ik\n", sprintf($R2/1000));
 printf (".param R3_val = %ik\n", sprintf($R3/1000));
 printf (".param R4_val = %ik\n", sprintf($R4/1000));
 
+printf (".param Vbias_n_val = %f\n", sprintf($Vdd - .5 - $Vov->[3]));
+printf (".param Vbias_p_val = %f\n", sprintf($Vss + $Vov->[1] + .5));
+
+
 # print summary for this sweep 
 print "=======================================================================\n";
 printf ("Ids (uA):  %10.1f, %10.1f, %10.1f, %10.1f\n", $Ids_branch->[1] * 1000000, $Ids_branch->[2] * 1000000, $Ids_branch->[3] * 1000000, $Ids_branch->[4] * 1000000) ; 
