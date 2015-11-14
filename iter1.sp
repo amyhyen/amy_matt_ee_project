@@ -16,6 +16,10 @@
 .include /usr/class/ee114/hspice/ee114_hspice.sp
 
 * Defining Top level circuit parameters
+.param p_Cin = 220f
+.param p_CL  = 250f
+.param p_RL  = 20k
+
 .param W1_val = 11u
 .param L1_val = 2u
 .param W2_val = 25u
