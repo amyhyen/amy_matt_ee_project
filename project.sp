@@ -44,32 +44,32 @@ CL    n_vout     0          'p_CL'
 * nmos b tied to lowest voltage
 * pmos b tied to highest voltage (or s)
 *** Vx/Iin = V(n_x) / Iin, use "n_x" as the node label for Vx ***
-MN1    n_in    n_nbias      n_vss    0    nmos114 w='W1_val'  l='L1_val'
-MN2    n_x     0         n_in     0    nmos114 w='W2_val'  l='L2_val'
+MN1    n_in    n_nbias      n_vss    n_vss    nmos114 w='W1_val'  l='L1_val'
+MN2    n_x     0         n_in     n_vin    nmos114 w='W2_val'  l='L2_val'
 MP3    n_x    n_pbias      n_vdd    n_vdd    pmos114 w='W3_val'  l='L3_val'
 R1     n_x    n_vdd      'R1_val'
 R2     n_x    0          'R2_val'
 
 *** Vy/Vx = V(n_y) / V(n_x) use "n_y" as the node label for Vy ***
 MP4    n_4d    n_x      n_vdd    n_vdd    pmos114 w='W4_val'  l='L4_val'
-MP5    n_y    0          n_4d    n_vdd    pmos114 w='W5_val'  l='L5_val'
-MN6    n_y    n_nbias      n_vss    0    nmos114 w='W6_val'  l='L6_val'
+MP5    n_y    0          n_4d    n_4d    pmos114 w='W5_val'  l='L5_val'
+MN6    n_y    n_nbias      n_vss    n_vss    nmos114 w='W6_val'  l='L6_val'
 R3     n_y    0          'R3_val'
 R4     n_y    n_vss      'R4_val'
 
 *** Vz/Vy = V(n_z) / V(n_y) use "n_z"" as the node label for Vz ***
-MN7    n_z    n_y      n_vss    0    nmos114 w='W7_val'  l='L7_val'
+MN7    n_z    n_y      n_vss    n_vss    nmos114 w='W7_val'  l='L7_val'
 MP8    n_z    n_z      n_vdd    n_vdd    pmos114 w='W8_val'  l='L8_val'
 
 *** Vout/Vz = V(n_vout) / V(n_z) use "n_vout" as the node label for Vout ***
-MN9    n_out    n_nbias      0        nmos114 w='W9_val'  l='L9_val'
-MN10   n_vdd    n_z      n_out    0    nmos114 w='W10_val'  l='L10_val'
+MN9    n_out    n_nbias  n_vss    n_vss        nmos114 w='W9_val'  l='L9_val'
+MN10   n_vdd    n_z      n_out    n_out    nmos114 w='W10_val'  l='L10_val'
 
 *** Your Bias Circuitry goes here ***
 * TBD: ideal current source for now
 * TBD: fill in the bias current value from calculating Ids through M3 and M1,6,9 in saturation
-Vbn n_nbias n_vss dc=?
-VBp n_pbias n_vss dc=?
+Vbn n_nbias 0 dc='Vbias_n_val'
+VBp n_pbias 0 dc='Vbias_p_val'
 
 *** defining the analysis ***
 .op

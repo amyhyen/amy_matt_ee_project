@@ -21,7 +21,7 @@ $max_power_total = 2e-3;
 
 # Resistor ratios
 $R2R1_ratio = 4; 
-$R4R3_ratio = 4; 
+$R4R3_ratio = 3; 
 
 ## Property initializations
 # Design choice
@@ -34,7 +34,7 @@ $Ids = [undef, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; # Will set based on branch allocat
 
 ## Design parameters
 # Id distributions
-$Ids_distribution_percent = [undef, 40, 25, 10, 25]; # In %
+$Ids_distribution_percent = [undef, 30, 30, 10, 30]; # In %
 $sum = $Ids_distribution_percent->[1] + $Ids_distribution_percent->[2] + $Ids_distribution_percent->[3] + $Ids_distribution_percent->[4];
 if ($sum != 100) {
 	print " ******** ERROR: Id allocation does not add to 100%!\n";
