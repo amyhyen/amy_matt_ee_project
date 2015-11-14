@@ -1,10 +1,10 @@
 * Design Problem, ee114/214A-2015
-* Team Member 1 Name:
-* Team Member 2 Name:
+* Team Member 1 Name: Matthew Feldman
+* Team Member 2 Name: Amy Yen
 * Please fill in the specification achieved by your circuit 
 * before you submit the netlist.
 **************************************************************
-* sunetids of team members = 
+* sunetids of team members = mattfel, htyen
 * The specifications that this script achieves are: 
 * Power       <= 2.00 mW
 * Gain        >= 30.0 kOhm
@@ -19,6 +19,7 @@
 .param p_Cin = 220f
 .param p_CL  = 250f
 .param p_RL  = 20k
+
 
 * defining the supply voltages
 vdd n_vdd 0 2.5
@@ -43,26 +44,26 @@ CL    n_vout     0          'p_CL'
 * nmos b tied to lowest voltage
 * pmos b tied to highest voltage (or s)
 *** Vx/Iin = V(n_x) / Iin, use "n_x" as the node label for Vx ***
-MN1    n_in    n_nbias      n_vss    0    nmos114 w=???u  l=???u
-MN2    n_x     0         n_in     0    nmos114 w=???u  l=???u
-MP3    n_x    n_pbias      n_vdd    n_vdd    pmos114 w=???u  l=???u
-R1     n_x    n_vdd      ???
-R2     n_x    0          ???
+MN1    n_in    n_nbias      n_vss    0    nmos114 w='W1_val'  l='L1_val'
+MN2    n_x     0         n_in     0    nmos114 w='W2_val'  l='L2_val'
+MP3    n_x    n_pbias      n_vdd    n_vdd    pmos114 w='W3_val'  l='L3_val'
+R1     n_x    n_vdd      'R1_val'
+R2     n_x    0          'R2_val'
 
 *** Vy/Vx = V(n_y) / V(n_x) use "n_y" as the node label for Vy ***
-MP4    n_4d    n_x      n_vdd    n_vdd    pmos114 w=???u  l=???u
-MP5    n_y    0          n_4d    n_vdd    pmos114 w=???u  l=???u
-MN6    n_y    n_nbias      n_vss    0    nmos114 w=???u  l=???u
-R3     n_y    0          ???
-R4     n_y    n_vss      ???
+MP4    n_4d    n_x      n_vdd    n_vdd    pmos114 w='W4_val'  l='L4_val'
+MP5    n_y    0          n_4d    n_vdd    pmos114 w='W5_val'  l='L5_val'
+MN6    n_y    n_nbias      n_vss    0    nmos114 w='W6_val'  l='L6_val'
+R3     n_y    0          'R3_val'
+R4     n_y    n_vss      'R4_val'
 
 *** Vz/Vy = V(n_z) / V(n_y) use "n_z"" as the node label for Vz ***
-MN7    n_z    n_y      n_vss    0    nmos114 w=???u  l=???u
-MP8    n_z    n_z      n_vdd    n_vdd    pmos114 w=???u  l=???u
+MN7    n_z    n_y      n_vss    0    nmos114 w='W7_val'  l='L7_val'
+MP8    n_z    n_z      n_vdd    n_vdd    pmos114 w='W8_val'  l='L8_val'
 
 *** Vout/Vz = V(n_vout) / V(n_z) use "n_vout" as the node label for Vout ***
-MN9    n_out    n_nbias      0        nmos114 w=???u  l=???u
-MN10   n_vdd    n_z      n_out    0    nmos114 w=???u  l=???u
+MN9    n_out    n_nbias      0        nmos114 w='W9_val'  l='L9_val'
+MN10   n_vdd    n_z      n_out    0    nmos114 w='W10_val'  l='L10_val'
 
 *** Your Bias Circuitry goes here ***
 * TBD: ideal current source for now
