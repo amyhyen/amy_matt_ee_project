@@ -7,7 +7,7 @@
 * sunetids of team members = mattfel, htyen
 * The specifications that this script achieves are: 
 * Power       <= 2.00 mW
-* Gain        >= 30.0 kOhm
+* Gain        >= 30.0 kOhm (89.5dB)
 * BandWidth   >= 90.0 MHz
 * FOM         >= 1350
 ***************************************************************
@@ -47,20 +47,19 @@
 .param Vbias_n_val = -0.154950
 .param Vbias_p_val = -0.922525
 
-
 * defining the supply voltages
 vdd n_vdd 0 2.5
 vss n_vss 0 -2.5
 
 * Defining the input current source
 ** For ac simulation uncomment the following 2 lines**
-Iin    n_iin    0    ac    100n	
+Iin    n_in    0    ac    1	
  
 ** For transient simulation uncomment the following 2 lines**
-*Iin    n_iin    0    sin(0 0.5u 1e6)
+*Iin    n_in    0    sin(0 0.5u 1e6)
 
 * Defining Input capacitance
-Cin    n_iin    0    'p_Cin'
+Cin    n_in    0    'p_Cin'
 
 * Defining the load 
 RL    n_vout     0          'p_RL'
@@ -72,7 +71,7 @@ CL    n_vout     0          'p_CL'
 * pmos b tied to highest voltage (or s)
 *** Vx/Iin = V(n_x) / Iin, use "n_x" as the node label for Vx ***
 MN1    n_in    n_nbias      n_vss    n_vss    nmos114 w='W1_val'  l='L1_val'
-MN2    n_x     0         n_in     n_vin    nmos114 w='W2_val'  l='L2_val'
+MN2    n_x     0         n_in     n_in    nmos114 w='W2_val'  l='L2_val'
 MP3    n_x    n_pbias      n_vdd    n_vdd    pmos114 w='W3_val'  l='L3_val'
 R1     n_x    n_vdd      'R1_val'
 R2     n_x    0          'R2_val'
@@ -89,8 +88,8 @@ MN7    n_z    n_y      n_vss    n_vss    nmos114 w='W7_val'  l='L7_val'
 MP8    n_z    n_z      n_vdd    n_vdd    pmos114 w='W8_val'  l='L8_val'
 
 *** Vout/Vz = V(n_vout) / V(n_z) use "n_vout" as the node label for Vout ***
-MN9    n_out    n_nbias  n_vss    n_vss        nmos114 w='W9_val'  l='L9_val'
-MN10   n_vdd    n_z      n_out    n_out    nmos114 w='W10_val'  l='L10_val'
+MN9    n_vout    n_nbias  n_vss    n_vss        nmos114 w='W9_val'  l='L9_val'
+MN10   n_vdd    n_z      n_vout    n_vout    nmos114 w='W10_val'  l='L10_val'
 
 *** Your Bias Circuitry goes here ***
 * TBD: ideal current source for now

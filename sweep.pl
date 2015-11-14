@@ -42,7 +42,7 @@ if ($sum != 100) {
 }
 ## Gain allocations
 # Do this in log scale
-$A_cg = 5050;
+$A_cg = 10000;
 $A_cascode = 30;
 $A_cs = 2.5;
 $A_cd = .7;
