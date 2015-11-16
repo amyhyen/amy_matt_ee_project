@@ -55,8 +55,8 @@ if ($gain_total < 30000) {
 }
 
 # tuning parameters
-my $R3R2_ratios = [10,50, 100];
-my $all_stage_gains = [[10000, 60, 2.5, 0.7], [5000, 5, 1.2, 0.9]];
+my $R3R2_ratios = [0.1,0.5, 0.001, 10, 50, 100];
+my $all_stage_gains = [[300, 300, 4.2, 0.7], [5000, 5, 1.2, 0.9]];
 my $Ids_distribution_percents = [[undef, 30, 30, 10, 30], [undef, 20, 30, 20, 30]];
 # start iterations
 my $iter = 0; 
@@ -93,6 +93,9 @@ sub iterate {
    $R4 = $R4R3_ratio * $R3;
    $gm->[4] = ( ($R3 + $R4) * $A_cascode ) / ($R3 * $R4);
    
+   # First xtor stack: tau = (Cin + Cgs2)/gm2, assume Cgs2 ~ Cin
+   #$gm->[2] = $A_cg / (2 * $C_in);
+
    # Third xtor stack
    $gm->[8] = $gm->[7] / $A_cs;
    
@@ -100,10 +103,10 @@ sub iterate {
    $gm->[10] = $A_cd / ($R_L * (1 - $A_cd) );
    
    ## Calculate I's
-   #Power <= 2 mW, Vdd to Vss = 5V => Ids_tot = (2mW - P_res)/5V = 400uA 
+   #Power <= 2 mW, Vdd to Vss = 5V => Ids_tot = (2mW - P_res)/5V
    # P_res is power dissipated over resistor stacks, assuming no current leaks from resistor stack into xtor stacks
    $P_res = ($Vdd ** 2 / ($R1 + $R2)) + ($Vss ** 2 / ($R3 + $R4));
-   if ((2e-3 - $P_res) < 0) {
+   if (($max_power_total - $P_res) < 0) {
    	print " ******** ERROR: Resistor stacks consume entire power budget!\n";
    	return;
    }
@@ -141,6 +144,11 @@ sub iterate {
 	    return;
 	}
    }
+   # correct Vov dependencies: MN1, MN6, MN9 have same Vov
+    $Vov->[6] = $Vov->[1];
+    $Vov->[9] = $Vov->[1];
+    $W->[9] = compute_w($Ids->[9], $kp_n, $L->[9], $Vov->[9]);
+    $W->[6] = compute_w($Ids->[6], $kp_n, $L->[6], $Vov->[6]);
    
    ## Calculate Cgs values
    for (my $i = 1; $i <=10 ; $i++){
@@ -164,9 +172,11 @@ sub iterate {
    $f_z = 1 / (2*3.14159*$tau_z);
    $f_out = 1 / (2*3.14159*$tau_out);
    
-   # $tau_total = $tau_in + $tau_x + $tau_y + $tau_z + $tau_out;
-   # $f_3db = 1/ (2*3.14*$tau_total);
+    $tau_total = $tau_in + $tau_x + $tau_y + $tau_z + $tau_out;
+    $f_3db = 1/ (2*3.14*$tau_total);
    
+   print "f_3db = $f_3db\n";
+
    # write out spice deck
    open (F, ">iter${iter}.sp") || die "failed to open \n";
    my $str = '
@@ -193,8 +203,8 @@ sub iterate {
    $str .= sprintf(".param R3_val = %ik\n", sprintf($R3/1000));
    $str .= sprintf(".param R4_val = %ik\n", sprintf($R4/1000));
    
-   $str .= sprintf(".param Vbias_n_val = %f\n", sprintf($Vdd - .5 - $Vov->[1]));
-   $str .= sprintf(".param Vbias_p_val = %f\n", sprintf($Vss + $Vov->[3] + .5));
+   $str .= sprintf(".param Vbias_p_val = %f\n", sprintf($Vdd - .5 - $Vov->[3]));
+   $str .= sprintf(".param Vbias_n_val = %f\n", sprintf($Vss + $Vov->[1] + .5));
    
    $str .= '
    ** Including the model file
