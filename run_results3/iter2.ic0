@@ -1,0 +1,23 @@
+* "simulator" "HSPICE" 
+* "version" "I-2013.12-SP2 64-BIT"
+* "format" "HSP"
+* "rundate" "21:52:36 11/15/2015 "
+* "netlist" "iter2.sp "
+* "runtitle" ""
+* time =    0.            
+* temperature =   25.0000        
+*** BEGIN: Saved Operating Point ***                     
+.option 
++ gmindc=   1.0000p       
+.nodeset
++ n_4d =   2.4482        
++ n_in =  -1.2664        
++ n_nbias =  -1.2950        
++ n_pbias = 590.0000m       
++ n_vdd =   2.5000        
++ n_vout =  -2.1352        
++ n_vss =  -2.5000        
++ n_x =   1.4708        
++ n_y = 227.7685m       
++ n_z =  -1.8322        
+***   END: Saved Operating Point ***                     
