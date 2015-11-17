@@ -12,32 +12,32 @@
    * BandWidth   >= 90.0 MHz
    * FOM         >= 1350
    ***************************************************************
-   .param W1_val = 20u
-.param L1_val = 5u
+   .param W1_val = 30u
+.param L1_val = 2u
 .param W2_val = 10u 
 .param L2_val = 2u
-.param W3_val = 20u
-.param L3_val = 10u
+.param W3_val = 22u
+.param L3_val = 2u
 .param W4_val = 2u
 .param L4_val = 2u
 .param W5_val = 20u
 .param L5_val = 2u
-.param W6_val = 7u
-.param L6_val = 3u
+.param W6_val = 8u
+.param L6_val = 2u
 .param W7_val = 2u
 .param L7_val = 2u
-.param W8_val = 10u
+.param W8_val = 30u
 .param L8_val = 2u
-.param W9_val = 20u
-.param L9_val = 10u
-.param W10_val = 22u
+.param W9_val = 30u
+.param L9_val = 6u
+.param W10_val = 9u
 .param L10_val = 2u
-.param R1_val = 60k
-.param R2_val = 50k
+.param R1_val = 120k
+.param R2_val = 100k
 .param R3_val = 100k
 .param R4_val = 600k
-.param Vbias_n_val = -1.600000
-.param Vbias_p_val = 1.20
+.param Vbias_n_val = -1.700000
+.param Vbias_p_val = 1.50
 
    ** Including the model file
    .include /usr/class/ee114/hspice/ee114_hspice.sp
