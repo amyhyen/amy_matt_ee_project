@@ -329,6 +329,9 @@ sub iterate {
    print "Running: $cmd\n";
    system ($cmd) == 0 || die "failed to run $cmd\n";
    
+   # parse spice sim output
+   parse_spice_output($iter);
+
    # print summary for this sweep 
    print "=======================================================================\n";
    printf ("Ids (uA):  %10.1f, %10.1f, %10.1f, %10.1f\n", $Ids_branch->[1] * 1000000, $Ids_branch->[2] * 1000000, $Ids_branch->[3] * 1000000, $Ids_branch->[4] * 1000000) ; 
@@ -360,6 +363,35 @@ sub compute_Vov {
    return $Vov;
 }
 
+sub parse_spice_output {
+   my ($iter) = @_;
+   my $spice_ids = [];
+   open (F, "<", "lis${iter}") || die "cannot open lis${iter} for read\n";
+   my @lines = <F>; my $line;
+   for (my $i = 0; $i < scalar (@lines); $i++) {
+      $line = $lines[$i];
+      chomp $line;
+      if ($line =~ /^\s+\*+\s+mosfets$/) {
+          $i++;
+          $line = $lines[$i];
+          chomp $line;
+          while ($line !~ /^\s+\*+\s+$/) {
+             if ($line =~ /\s+id\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)/) {
+                $spice_ids->[1] = $1;
+                $spice_ids->[2] = $2;
+                $spice_ids->[3] = $3;
+                $spice_ids->[4] = $4;
+                $spice_ids->[5] = $5;
+                $spice_ids->[6] = $6;
+             }
+             $i++;
+             $line = $lines[$i];
+             chomp $line;
+          }
+      }
+   }
+   return $spice_ids;
+}
 sub compute_w {
    my ($Ids, $kp, $L, $Vov) = @_;
    my $w = 2*$Ids / ($kp/$L*($Vov**2));
