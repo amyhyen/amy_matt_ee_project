@@ -35,19 +35,19 @@ system ("rm iter*");
 
 foreach (@$W1) {
  my $w1 = $_;
-  foreach (@$W2) {
-   my $w2 = $_;
-   foreach (@$W3) {
-    my $w3 = $_;
-    foreach (@$W4) {
-     my $w4 = $_;
-     foreach (@$W5) {
-      my $w5= $_;
-      foreach (@$W6) {
-       my $w6 = $_;
-       foreach (@$W7) {
-        my $w7 = $_;
-        foreach (@$W8) {
+ foreach (@$W2) {
+  my $w2 = $_;
+  foreach (@$W3) {
+   my $w3 = $_;
+   foreach (@$W4) {
+    my $w4 = $_;
+    foreach (@$W5) {
+     my $w5= $_;
+     foreach (@$W6) {
+      my $w6 = $_;
+      foreach (@$W7) {
+       my $w7 = $_;
+       foreach (@$W8) {
         my $w8 = $_;
         foreach (@$W9) {
          my $w9 = $_;
@@ -89,8 +89,7 @@ foreach (@$W1) {
                           $L = [$l1, $l2, $l3, $l4, $l5, $l6, $l7, $l8, $l9, $l10]
                           test($W, $L, $R, $vp, $vn, $iter);
                           evaluate($iter);
-
-                          $iter++;
+                           $iter++;
                          }
                         }
                        }
