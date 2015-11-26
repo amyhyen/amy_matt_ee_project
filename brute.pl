@@ -1,78 +1,80 @@
-$W1 = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+$W1 = [14, 18, 20];
 $L1 = [2];
-$W2 = [8, 9, 10, 11, 12];
+$W2 = [10, 12];
 $L2 = [2];
-$W3 = [24, 25, 26, 27, 28];
+$W3 = [26, 28];
 $L3 = [2];
-$W4 = [4, 5, 6, 7, 8];
+$W4 = [6, 8];
 $L4 = [2];
-$W5 = [2, 3, 4, 5];
+$W5 = [3];
 $L5 = [2];
-$W6 = [2, 3, 4, 5, 6];
-$L6 = [2, 3, 4];
-$W7 = [2];
+$W6 = [4];
+$L6 = [2];
+$W7 = [2,3,4];
 $L7 = [2];
-$W8 = [17, 18, 19, 20, 21, 22, 23];
+$W8 = [20, 18, 22];
 $L8 = [2];
-$W9 = [17, 18, 19, 20, 21, 22, 23];
+$W9 = [20];
 $L9 = [2];
-$W10 = [26, 27, 28, 29, 30, 31, 32, 33, 34];
+$W10 = [30];
 $L10 = [2];
-$R1 = [21000, 25000, 30000];
-$R2 = [23000, 26000, 28000, 40000];
-$R3 = [30000, 35000, 40000, 45000];
-$R4 = [35000, 40000, 45000, 50000, 60000, 70000];
-$Vp = [1.3, 1.4, 1.45, 1.5, 1.55, 1.6, 1.65, 1.7, 1.75];
-$Vn = [-1.3, -1.4, -1.45, -1.5, -1.55, -1.6, -1.65, -1.7, -1.75];
+$R1 = [21000];
+$R2 = [26000];
+$R3 = [35000];
+$R4 = [50000];
+$Vp = [1.4, 1.6];
+$Vn = [-1.4, -1.6];
+
+# Init things
 $W = [undef, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2];
 $L = [undef, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2];
 $R = [1000, 1000, 1000, 1000];
 $iter = 0;
 
 # Delete old files
-system ("rm lis*");
-system ("rm iter*");
-system ("rm results");
-system ("touch results");
+system ("rm -rf lis*");
+system ("rm -rf iter*");
+system ("rm -rf results.csv");
+system ("touch results.csv");
 
 foreach (@$W1) {
  my $w1 = $_;
- foreach (@$W2) {
-  my $w2 = $_;
-  foreach (@$W3) {
-   my $w3 = $_;
-   foreach (@$W4) {
-    my $w4 = $_;
-    foreach (@$W5) {
-     my $w5= $_;
-     foreach (@$W6) {
-      my $w6 = $_;
-      foreach (@$W7) {
-       my $w7 = $_;
-       foreach (@$W8) {
-        my $w8 = $_;
-        foreach (@$W9) {
-         my $w9 = $_;
-         foreach (@$W10) {
-          my $w10 = $_;
-          foreach (@$L1) {
-           my $l1 = $_;
-           foreach (@$L2) {
-            my $l2 = $_;
-            foreach (@$L3) {
-             my $l3 = $_;
-             foreach (@$L4) {
-              my $l4 = $_;
-              foreach (@$L5) {
-               my $l5 = $_;
-               foreach (@$L6) {
-                my $l6 = $_;
-                foreach (@$L7) {
-                 my $l7 = $_;
-                 foreach (@$L8) {
-                  my $l8 = $_;
-                  foreach (@$L9) {
-                   my $l9 = $_;
+ foreach (@$L1) {
+  my $l1 = $_;
+  foreach (@$W2) {
+   my $w2 = $_;
+   foreach (@$L2) {
+    my $l2 = $_;
+    foreach (@$W3) {
+     my $w3 = $_;
+     foreach (@$L3) {
+      my $l3 = $_;
+      foreach (@$W4) {
+       my $w4 = $_;
+       foreach (@$L4) {
+        my $l4 = $_;
+        foreach (@$W5) {
+         my $w5 = $_;
+         foreach (@$L5) {
+          my $l5 = $_;
+          foreach (@$W6) {
+           my $w6 = $_;
+           foreach (@$L6) {
+            my $l6 = $_;
+            foreach (@$W7) {
+             my $w7 = $_;
+             foreach (@$L7) {
+              my $l7 = $_;
+              foreach (@$W8) {
+               my $w8 = $_;
+               foreach (@$L8) {
+                my $l8 = $_;
+                foreach (@$W9) {
+                 my $w9 = $_;
+                 foreach (@$L9) {
+                  my $l9 = $_;
+                  foreach (@$W10) {
+                   my $w10 = $_;
                    foreach (@$L10) {
                     my $l10 = $_;
                     foreach (@$R1) {
@@ -120,6 +122,9 @@ foreach (@$W1) {
  }
 }
 
+system ("mkdir archive_brute");
+system ("mv lis* archive_brute");
+system ("mv iter* archive_brute");
 
 sub test {
    my ($W, $L, $R, $Vp, $Vn, $iter) = @_;
@@ -283,6 +288,11 @@ sub evaluate {
    if ($sats==16) {
 	print_stats($iter);
    }
+   else {
+	system ("rm iter${iter}.sp");
+        system ("rm lis${iter}");
+   }
+   
    
 }
 
@@ -315,9 +325,9 @@ sub print_stats {
    my $gain = `cat lis${iter} | grep gainmax_vout | awk -F\"vout=\" \'{print substr(\$2,3,14)}\' | tr -d \'\\012\\015\'`;
    my $BW = `cat lis${iter} | grep f3db_vout | awk -F\"vout=\" \'{print substr(\$2,3,14)}\' | tr -d \'\\012\\015\'`;
    my $pwr = `cat lis${iter} | grep \'total voltage source power dissipation\' | awk -F"=" '{print substr(\$2,3,14)}' | tr -d \'\\012\\015\'`;
-   my $log = "gain: ${gain} | BW: ${BW} | pwr: ${pwr} | iter: ${iter}\n";
+   my $log = "gain, ${gain}, BW, ${BW}, pwr, ${pwr}, iter, ${iter}\n";
    print $log;
-   open(my $file, ">>results");
+   open(my $file, ">>results.csv");
    print $file "${log}";
    
    return;
