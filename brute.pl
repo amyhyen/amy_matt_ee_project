@@ -18,14 +18,15 @@ $L7 = [2];
 $L8 = [2];
 $L9 = [2];
 $L10 = [2];
-$R1 = 20000;
-$R2 = 42000;
-$R3 = 35000;
-$R4 = 50000;
-$Vp = 1.6;
-$Vn = -1.3;
+$R1 = [20000];
+$R2 = [42000];
+$R3 = [35000];
+$R4 = [50000];
+$Vp = [1.6];
+$Vn = [-1.3];
 $W = [undef, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2];
 $L = [undef, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2];
+$R = [1000 1000 1000 1000]
 $iter = 0;
 
 # Delete old files
@@ -34,16 +35,92 @@ system ("rm iter*");
 
 foreach (@$W1) {
  my $w1 = $_;
- $W->[1] = $w1;
- test($W, $L, $R1, $R2, $R3, $R4, $Vp, $Vn, $iter);
- evaluate($iter);
+  foreach (@$W2) {
+   my $w2 = $_;
+   foreach (@$W3) {
+    my $w3 = $_;
+    foreach (@$W4) {
+     my $w4 = $_;
+     foreach (@$W5) {
+      my $w5= $_;
+      foreach (@$W6) {
+       my $w6 = $_;
+       foreach (@$W7) {
+        my $w7 = $_;
+        foreach (@$W8) {
+        my $w8 = $_;
+        foreach (@$W9) {
+         my $w9 = $_;
+         foreach (@$W10) {
+          my $w10 = $_;
+          foreach (@$L1) {
+           my $l1 = $_;
+           foreach (@$L2) {
+            my $l2 = $_;
+            foreach (@$L3) {
+             my $l3 = $_;
+             foreach (@$L4) {
+              my $l4 = $_;
+              foreach (@$L5) {
+               my $l5 = $_;
+               foreach (@$L6) {
+                my $l6 = $_;
+                foreach (@$L7) {
+                 my $l7 = $_;
+                 foreach (@$L8) {
+                  my $l8 = $_;
+                  foreach (@$L9) {
+                   my $l9 = $_;
+                   foreach (@$L10) {
+                    my $l10 = $_;
+                    foreach (@$R1) {
+                     my $r1 = $_;
+                     foreach (@$R2) {
+                      my $r2 = $_;
+                      foreach (@$R3) {
+                       my $r3 = $_;
+                       foreach (@$R4) {
+                        my $r4 = $_;
+                        foreach (@$Vp) {
+                         my $vp = $_;
+                         foreach (@$Vn) {
+                          my $vn = $_;
+                          $W = [$w1, $w2, $w3, $w4, $w5, $w6, $w7, $w8, $w9, $w10]
+                          $L = [$l1, $l2, $l3, $l4, $l5, $l6, $l7, $l8, $l9, $l10]
+                          test($W, $L, $R, $vp, $vn, $iter);
+                          evaluate($iter);
 
- $iter++;
+                          $iter++;
+                         }
+                        }
+                       }
+                      }
+                     }
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
 }
 
 
 sub test {
-   my ($W, $L, $R1, $R2, $R3, $R4, $Vp, $Vn, $iter) = @_;
+   my ($W, $L, $R, $Vp, $Vn, $iter) = @_;
    
    # write out spice deck
    open (F, ">iter${iter}.sp") || die "failed to open \n";
@@ -67,10 +144,10 @@ sub test {
    	$str .= sprintf(".param W%i_val = %iu\n", $i, sprintf($W->[$i]));
    	$str .= sprintf (".param L%i_val = %iu\n", $i, sprintf($L->[$i]));
    }
-   $str .= sprintf(".param R1_val = %ik\n", sprintf($R1/1000));
-   $str .= sprintf(".param R2_val = %ik\n", sprintf($R2/1000));
-   $str .= sprintf(".param R3_val = %ik\n", sprintf($R3/1000));
-   $str .= sprintf(".param R4_val = %ik\n", sprintf($R4/1000));
+   $str .= sprintf(".param R1_val = %ik\n", sprintf($R->[1]/1000));
+   $str .= sprintf(".param R2_val = %ik\n", sprintf($R->[2]/1000));
+   $str .= sprintf(".param R3_val = %ik\n", sprintf($R->[3]/1000));
+   $str .= sprintf(".param R4_val = %ik\n", sprintf($R->[4]/1000));
    
    $str .= sprintf(".param Vbias_p_val = %f\n", sprintf($Vp));
    $str .= sprintf(".param Vbias_n_val = %f\n", sprintf($Vn));
