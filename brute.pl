@@ -1,37 +1,39 @@
-$W1 = [20];
-$W2 = [20];
-$W3 = [40];
-$W4 = [2];
-$W5 = [2];
-$W6 = [2];
-$W7 = [2];
-$W8 = [2];
-$W9 = [20];
-$W10 = [20];
+$W1 = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 $L1 = [2];
+$W2 = [8, 9, 10, 11, 12];
 $L2 = [2];
+$W3 = [24, 25, 26, 27, 28];
 $L3 = [2];
+$W4 = [4, 5, 6, 7, 8];
 $L4 = [2];
+$W5 = [2, 3, 4, 5];
 $L5 = [2];
-$L6 = [2];
+$W6 = [2, 3, 4, 5, 6];
+$L6 = [2, 3, 4];
+$W7 = [2];
 $L7 = [2];
+$W8 = [17, 18, 19, 20, 21, 22, 23];
 $L8 = [2];
+$W9 = [17, 18, 19, 20, 21, 22, 23];
 $L9 = [2];
+$W10 = [26, 27, 28, 29, 30, 31, 32, 33, 34];
 $L10 = [2];
-$R1 = [20000];
-$R2 = [42000];
-$R3 = [35000];
-$R4 = [50000];
-$Vp = [1.6];
-$Vn = [-1.3];
+$R1 = [21000, 25000, 30000];
+$R2 = [23000, 26000, 28000, 40000];
+$R3 = [30000, 35000, 40000, 45000];
+$R4 = [35000, 40000, 45000, 50000, 60000, 70000];
+$Vp = [1.3, 1.4, 1.45, 1.5, 1.55, 1.6, 1.65, 1.7, 1.75];
+$Vn = [-1.3, -1.4, -1.45, -1.5, -1.55, -1.6, -1.65, -1.7, -1.75];
 $W = [undef, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2];
 $L = [undef, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2];
-$R = [1000 1000 1000 1000]
+$R = [1000, 1000, 1000, 1000];
 $iter = 0;
 
 # Delete old files
 system ("rm lis*");
 system ("rm iter*");
+system ("rm results");
+system ("touch results");
 
 foreach (@$W1) {
  my $w1 = $_;
@@ -85,11 +87,12 @@ foreach (@$W1) {
                          my $vp = $_;
                          foreach (@$Vn) {
                           my $vn = $_;
-                          $W = [$w1, $w2, $w3, $w4, $w5, $w6, $w7, $w8, $w9, $w10]
-                          $L = [$l1, $l2, $l3, $l4, $l5, $l6, $l7, $l8, $l9, $l10]
+                          $W = [undef, $w1, $w2, $w3, $w4, $w5, $w6, $w7, $w8, $w9, $w10];
+                          $L = [undef, $l1, $l2, $l3, $l4, $l5, $l6, $l7, $l8, $l9, $l10];
+                          $R = [undef, $r1, $r2, $r3, $r4];
                           test($W, $L, $R, $vp, $vn, $iter);
                           evaluate($iter);
-                           $iter++;
+                          $iter++;
                          }
                         }
                        }
@@ -277,7 +280,7 @@ sub evaluate {
    my ($iter) = @_; 
     # Count up sats
    $sats = count_sat($iter);
-   if ($sats==14) {
+   if ($sats==16) {
 	print_stats($iter);
    }
    
@@ -309,10 +312,14 @@ sub count_sat {
 
 sub print_stats {
    my ($iter) = @_;
-   my $gain = `cat lis${iter} | grep gainmax_vout | awk -F\"vout=\" \'{print substr($2,3,14)}\'`;
-   my $BW = `cat lis${iter} | grep f3db_vout | awk -F\"vout=\" \'{print substr($2,3,14)}\'`;
-   my $pwr = `cat lis${iter} | grep \'total voltage source power dissipation\' | awk -F"=" '{print substr($2,3,14)}'`;
-   print "gain: ${gain} | BW: ${BW} | pwr: ${pwr} | iter: ${iter}\n";
+   my $gain = `cat lis${iter} | grep gainmax_vout | awk -F\"vout=\" \'{print substr(\$2,3,14)}\' | tr -d \'\\012\\015\'`;
+   my $BW = `cat lis${iter} | grep f3db_vout | awk -F\"vout=\" \'{print substr(\$2,3,14)}\' | tr -d \'\\012\\015\'`;
+   my $pwr = `cat lis${iter} | grep \'total voltage source power dissipation\' | awk -F"=" '{print substr(\$2,3,14)}' | tr -d \'\\012\\015\'`;
+   my $log = "gain: ${gain} | BW: ${BW} | pwr: ${pwr} | iter: ${iter}\n";
+   print $log;
+   open(my $file, ">>results");
+   print $file "${log}";
+   
    return;
    
 }
