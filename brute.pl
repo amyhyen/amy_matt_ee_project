@@ -38,6 +38,7 @@ system ("rm -rf archive_brute");
 system ("rm -rf results.csv");
 system ("touch results.csv");
 
+
 foreach (@$Vn) {
  my $vn = $_;
  foreach (@$Vp) {
