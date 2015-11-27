@@ -1,29 +1,29 @@
-$W1 = [14, 18, 20];
+$W1 = [18];
 $L1 = [2];
-$W2 = [10, 12];
+$W2 = [19];
 $L2 = [2];
-$W3 = [26, 28];
+$W3 = [28];
 $L3 = [2];
-$W4 = [6, 8];
+$W4 = [6];
 $L4 = [2];
-$W5 = [3];
-$L5 = [2];
-$W6 = [4];
-$L6 = [2];
-$W7 = [2,3,4];
+$W5 = [2,3,4,5,6];
+$L5 = [2,3,4];
+$W6 = [2];
+$L6 = [6];
+$W7 = [2];
 $L7 = [2];
-$W8 = [20, 18, 22];
+$W8 = [8];
 $L8 = [2];
-$W9 = [20];
+$W9 = [29];
 $L9 = [2];
-$W10 = [30];
+$W10 = [32];
 $L10 = [2];
 $R1 = [21000];
 $R2 = [26000];
-$R3 = [35000];
-$R4 = [50000];
-$Vp = [1.4, 1.6];
-$Vn = [-1.4, -1.6];
+$R3 = [50000];
+$R4 = [100000];
+$Vp = [1.4];
+$Vn = [-1.4];
 
 # Init things
 $W = [undef, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2];
@@ -34,6 +34,7 @@ $iter = 0;
 # Delete old files
 system ("rm -rf lis*");
 system ("rm -rf iter*");
+system ("rm -rf archive_brute");
 system ("rm -rf results.csv");
 system ("touch results.csv");
 
@@ -147,6 +148,7 @@ sub test {
    ***************************************************************
 
    ';
+   $str .= sprintf("\n");
    for (my $i = 1; $i <= 10 ; $i++) {
    	$str .= sprintf(".param W%i_val = %iu\n", $i, sprintf($W->[$i]));
    	$str .= sprintf (".param L%i_val = %iu\n", $i, sprintf($L->[$i]));
@@ -289,7 +291,7 @@ sub evaluate {
 	print_stats($iter);
    }
    else {
-	system ("rm iter${iter}.sp");
+	system ("rm iter${iter}.*");
         system ("rm lis${iter}");
    }
    
