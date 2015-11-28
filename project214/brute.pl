@@ -1,10 +1,10 @@
-$W1 = [18];
+$W1 = [14,15,16,17];
 $L1 = [2];
 $W2 = [19];
 $L2 = [2];
-$W3 = [28];
+$W3 = [27,28,29,30,31];
 $L3 = [2];
-$W4 = [6];
+$W4 = [6,5,7];
 $L4 = [2];
 $W5 = [4];
 $L5 = [2];
@@ -12,18 +12,18 @@ $W6 = [2];
 $L6 = [2];
 $W7 = [2];
 $L7 = [2];
-$W8 = [2,3,4,5,6];
+$W8 = [4,3,5];
 $L8 = [2];
-$W9 = [29];
+$W9 = [29,30,31,32];
 $L9 = [2];
-$W10 = [32];
+$W10 = [29,30,31,32,33,34];
 $L10 = [2];
-$R1 = [20000,21000,22000,22500,23000,23500];
-$R2 = [24500,25000,26000,26500];
-$R3 = [47000,48000,50000,55000];
-$R4 = [95000,97500,100000,100500];
+$R1 = [22000];
+$R2 = [24000];
+$R3 = [55000];
+$R4 = [96500];
 $Vp = [1.4];
-$Vn = [-1.4];
+$Vn = [-1.3425,-1.345,-1.3475];
 
 # Init things
 $W = [undef, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2];
@@ -154,10 +154,10 @@ sub test {
    	$str .= sprintf(".param W%i_val = %iu\n", $i, sprintf($W->[$i]));
    	$str .= sprintf (".param L%i_val = %iu\n", $i, sprintf($L->[$i]));
    }
-   $str .= sprintf(".param R1_val = %ik\n", sprintf($R->[1]/1000));
-   $str .= sprintf(".param R2_val = %ik\n", sprintf($R->[2]/1000));
-   $str .= sprintf(".param R3_val = %ik\n", sprintf($R->[3]/1000));
-   $str .= sprintf(".param R4_val = %ik\n", sprintf($R->[4]/1000));
+   $str .= sprintf(".param R1_val = %fk\n", sprintf($R->[1]/1000));
+   $str .= sprintf(".param R2_val = %fk\n", sprintf($R->[2]/1000));
+   $str .= sprintf(".param R3_val = %fk\n", sprintf($R->[3]/1000));
+   $str .= sprintf(".param R4_val = %fk\n", sprintf($R->[4]/1000));
    
    $str .= sprintf(".param Vbias_p_val = %f\n", sprintf($Vp));
    $str .= sprintf(".param Vbias_n_val = %f\n", sprintf($Vn));
@@ -328,7 +328,8 @@ sub print_stats {
    my $gain = `cat lis${iter} | grep gainmax_vout | awk -F\"vout=\" \'{print substr(\$2,3,12)}\' | tr -d \'\\012\\015\'`;
    my $BW = `cat lis${iter} | grep f3db_vout | awk -F\"vout=\" \'{print substr(\$2,3,15)}\' | tr -d \'\\012\\015\'`;
    my $pwr = `cat lis${iter} | grep \'total voltage source power dissipation\' | awk -F"=" '{print substr(\$2,3,14)}' | tr -d \'\\012\\015\'`;
-   my $log = "gain, ${gain}, BW, ${BW}, pwr, ${pwr}, iter, ${iter}\n";
+   my $CMout = `cat lis${iter} | grep \'0:n_vdd   =\' | awk -F"0:n_vout=" '{print substr(\$2,3,8)}' | tr -d \'\\012\\015\'`;
+   my $log = "gain, ${gain}, BW, ${BW}, pwr, ${pwr}, vout, ${CMout}, iter, ${iter}\n";
    print $log;
    open(my $file, ">>results.csv");
    print $file "${log}";
