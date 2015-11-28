@@ -1,8 +1,0 @@
-$DATA1 SOURCE='HSPICE' VERSION='I-2013.12-SP2 64-BIT'
-.TITLE ' '
- gainmax_vout     f3db_vout        gainmax_vx       f3db_vx           
- gainmax_vy       f3db_vy          gainmax_vz       f3db_vz           
- temper           alter#            
-   14.2870         2.353e+06         73.4559         2.548e+06        
-   62.0262         2.552e+06         51.8145         2.547e+06        
-   25.0000        1                 
