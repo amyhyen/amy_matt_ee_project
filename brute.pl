@@ -334,7 +334,7 @@ sub print_stats {
    my $n_vout = `cat lis${iter} | grep n_vout | sed -e 's/.\\+n_vout\\s\\+=\\(.\\+\\)m/\\1E-3/'`;
 # `cat lis${iter} | grep n_vout | sed -e 's/.\+n_vout\s\+=\(.\+\)m/\1E-3/'`;
 
-   my $log = "gain, ${gain}, BW, ${BW}, pwr, ${pwr}, iter, ${iter}, n_vout, $n_vout\n";
+   my $log = "gain, ${gain}, BW, ${BW}, pwr, ${pwr}, iter, ${iter}, n_vout, $n_vout";
    print $log;
    open(my $file, ">>results.csv");
    print $file "${log}";
