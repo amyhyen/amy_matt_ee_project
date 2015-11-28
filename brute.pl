@@ -1,15 +1,15 @@
-$W1 = [18];
+$W1 = [15,16];
 $L1 = [2];
 $W2 = [19];
 $L2 = [2];
-$W3 = [28];
+$W3 = [28,29];
 $L3 = [2];
-$W4 = [6];
+$W4 = [5,6];
 $L4 = [2];
-$W5 = [2,3,4,5,6];
-$L5 = [2,3,4];
+$W5 = [4];
+$L5 = [2];
 $W6 = [2];
-$L6 = [6];
+$L6 = [2];
 $W7 = [2];
 $L7 = [2];
 $W8 = [8];
@@ -18,12 +18,12 @@ $W9 = [29];
 $L9 = [2];
 $W10 = [32];
 $L10 = [2];
-$R1 = [21000];
-$R2 = [26000];
-$R3 = [50000];
-$R4 = [100000];
+$R1 = [22000];
+$R2 = [24000];
+$R3 = [55000];
+$R4 = [96500];
 $Vp = [1.4];
-$Vn = [-1.4];
+$Vn = [-1.339,-1.34,-1.3425];
 
 # Init things
 $W = [undef, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2];
@@ -331,10 +331,10 @@ sub print_stats {
    $gain =~ s/at$//;
    $pwr =~ s/m/E-3/;
    $BW =~ s/x/E6/;
-   my $n_vout = `cat lis${iter} | grep n_vout | sed -e 's/.\\+n_vout\\s\\+=\\(.\\+\\)m/\\1E-3/'`;
+   my $n_vout = `cat lis${iter} | grep n_vout | sed -e 's/.\\+n_vout\\s\\+=\\(.\\+\\)m/\\1E-3/' | tr -d \'\\012\\015\'`;
 # `cat lis${iter} | grep n_vout | sed -e 's/.\+n_vout\s\+=\(.\+\)m/\1E-3/'`;
 
-   my $log = "gain, ${gain}, BW, ${BW}, pwr, ${pwr}, iter, ${iter}, n_vout, $n_vout";
+   my $log = "gain, ${gain}, BW, ${BW}, pwr, ${pwr}, n_vout, ${n_vout}, iter, ${iter}\n";
    print $log;
    open(my $file, ">>results.csv");
    print $file "${log}";
