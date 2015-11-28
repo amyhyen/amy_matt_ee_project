@@ -1,29 +1,29 @@
-$W1 = [10,11,12,13];
+$W1 = [26,25,27];
 $L1 = [2];
-$W2 = [17,19,21,23];
-$L2 = [2];
-$W3 = [26,28,30];
+$W2 = [23,22,24];
+$L2 = [1];
+$W3 = [34,35];
 $L3 = [2];
-$W4 = [5,6,7,8];
-$L4 = [2];
-$W5 = [4];
-$L5 = [2];
-$W6 = [2];
+$W4 = [2];
+$L4 = [1];
+$W5 = [2];
+$L5 = [1];
+$W6 = [12,11,13];
 $L6 = [2];
-$W7 = [2];
-$L7 = [2];
-$W8 = [3];
-$L8 = [2];
-$W9 = [27,30,33];
+$W7 = [2,3];
+$L7 = [1];
+$W8 = [3,2];
+$L8 = [1];
+$W9 = [25];
 $L9 = [2];
-$W10 = [30];
-$L10 = [2];
-$R1 = [22000];
-$R2 = [24000];
-$R3 = [55000];
-$R4 = [96500];
-$Vp = [1.4,1.395];
-$Vn = [-1.3425,-1.3410,-1.3405,-1.3430];
+$W10 = [32];
+$L10 = [1];
+$R1 = [29000,30000];
+$R2 = [25000,26000];
+$R3 = [58000,59000,57000];
+$R4 = [90000];
+$Vp = [1.45];
+$Vn = [-1.53];
 
 # Init things
 $W = [undef, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2];
@@ -154,10 +154,10 @@ sub test {
    	$str .= sprintf(".param W%i_val = %iu\n", $i, sprintf($W->[$i]));
    	$str .= sprintf (".param L%i_val = %iu\n", $i, sprintf($L->[$i]));
    }
-   $str .= sprintf(".param R1_val = %ik\n", sprintf($R->[1]/1000));
-   $str .= sprintf(".param R2_val = %ik\n", sprintf($R->[2]/1000));
-   $str .= sprintf(".param R3_val = %ik\n", sprintf($R->[3]/1000));
-   $str .= sprintf(".param R4_val = %ik\n", sprintf($R->[4]/1000));
+   $str .= sprintf(".param R1_val = %fk\n", sprintf($R->[1]/1000));
+   $str .= sprintf(".param R2_val = %fk\n", sprintf($R->[2]/1000));
+   $str .= sprintf(".param R3_val = %fk\n", sprintf($R->[3]/1000));
+   $str .= sprintf(".param R4_val = %fk\n", sprintf($R->[4]/1000));
    
    $str .= sprintf(".param Vbias_p_val = %f\n", sprintf($Vp));
    $str .= sprintf(".param Vbias_n_val = %f\n", sprintf($Vn));
@@ -325,8 +325,8 @@ sub count_sat {
 
 sub print_stats {
    my ($iter) = @_;
-   my $gain = `cat lis${iter} | grep gainmax_vout | awk -F\"vout=\" \'{print substr(\$2,3,14)}\' | tr -d \'\\012\\015\'`;
-   my $BW = `cat lis${iter} | grep f3db_vout | awk -F\"vout=\" \'{print substr(\$2,3,14)}\' | tr -d \'\\012\\015\'`;
+   my $gain = `cat lis${iter} | grep gainmax_vout | awk -F\"vout=\" \'{print substr(\$2,1,14)}\' | tr -d \'\\012\\015\'`;
+   my $BW = `cat lis${iter} | grep f3db_vout | awk -F\"vout=\" \'{print substr(\$2,1,14)}\' | tr -d \'\\012\\015\'`;
    my $pwr = `cat lis${iter} | grep \'total voltage source power dissipation\' | awk -F"=" '{print substr(\$2,3,14)}' | tr -d \'\\012\\015\'`;
    $gain =~ s/at$//;
    $pwr =~ s/m/E-3/;
