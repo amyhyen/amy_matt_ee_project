@@ -328,7 +328,13 @@ sub print_stats {
    my $gain = `cat lis${iter} | grep gainmax_vout | awk -F\"vout=\" \'{print substr(\$2,3,14)}\' | tr -d \'\\012\\015\'`;
    my $BW = `cat lis${iter} | grep f3db_vout | awk -F\"vout=\" \'{print substr(\$2,3,14)}\' | tr -d \'\\012\\015\'`;
    my $pwr = `cat lis${iter} | grep \'total voltage source power dissipation\' | awk -F"=" '{print substr(\$2,3,14)}' | tr -d \'\\012\\015\'`;
-   my $log = "gain, ${gain}, BW, ${BW}, pwr, ${pwr}, iter, ${iter}\n";
+   $gain =~ s/at$//;
+   $pwr =~ s/m/E-3/;
+   $BW =~ s/x/E6/;
+   my $n_vout = `cat lis${iter} | grep n_vout | sed -e 's/.\\+n_vout\\s\\+=\\(.\\+\\)m/\\1E-3/'`;
+# `cat lis${iter} | grep n_vout | sed -e 's/.\+n_vout\s\+=\(.\+\)m/\1E-3/'`;
+
+   my $log = "gain, ${gain}, BW, ${BW}, pwr, ${pwr}, iter, ${iter}, n_vout, $n_vout\n";
    print $log;
    open(my $file, ">>results.csv");
    print $file "${log}";
