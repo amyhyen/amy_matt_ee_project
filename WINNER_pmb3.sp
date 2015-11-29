@@ -34,7 +34,7 @@
 .param L9_val = 2u
 .param W10_val = 60u
 .param L10_val = 1u
-.param R1_val = 9.500000k
+.param R1_val = 9.400000k
 .param R2_val = 15.400000k
 .param R3_val = 90.000000k
 .param R4_val = 68.000000k
@@ -71,32 +71,28 @@
    * Bias Circuitry - Vb_p
    .param W11_val = 30u
    .param L11_val = 2u
-   .param W12_val = 30u
+   .param W12_val = 6u
    .param L12_val = 2u
    .param W13_val = 2u
-   .param L13_val = 7u
-   .param R11_val = 500k
-   .param R12_val = 650k
-   MN11   b_n_d11       b_n_g11       0     0  nmos114 w='W11_val' l='L11_val'
-   MN12   n_pbias_float b_n_d11       b_n_g11   0  nmos114 w='W12_val' l='L12_val'
-   MP13   n_pbias_float n_pbias_float n_vdd     n_vdd  pmos114 w='W13_val' l='L13_val'
-   R11    n_vdd         b_n_d11       'R11_val'
-   R12    b_n_g11       0         'R12_val'
+   .param L13_val = 20u
+   .param R11_val = 1000000
+   MN11   b_n_g11       b_n_g11       n_vss     n_vss  nmos114 w='W11_val' l='L11_val'
+   MN12   n_pbias b_n_g11       n_vss   n_vss  nmos114 w='W12_val' l='L12_val'
+   MP13   n_pbias n_pbias n_vdd     n_vdd  pmos114 w='W13_val' l='L13_val'
+   R11    n_vdd         b_n_g11       'R11_val'
    
    * Bias Circuitry - Vb_n
-   .param W14_val = 30u
+   .param W14_val = 14u
    .param L14_val = 2u
-   .param W15_val = 20u
+   .param W15_val = 4u
    .param L15_val = 2u
    .param W16_val = 2u
-   .param L16_val = 2u
-   .param R13_val = 50k
-   .param R14_val = 500k
-   MP14   b_n_d14       b_n_g14       0     n_vdd  pmos114 w='W14_val' l='L14_val'
-   MP15   n_nbias_float b_n_d14       b_n_g14   n_vdd  pmos114 w='W15_val' l='L15_val'
-   MN16   n_nbias_float n_nbias_float n_vss     n_vss  nmos114 w='W16_val' l='L16_val'
-   R13    b_n_d14       n_vss       'R13_val'
-   R14    0             b_n_g14         'R14_val'
+   .param L16_val = 20u
+   .param R13_val = 680000
+   MP14   b_n_g14       b_n_g14       n_vdd     n_vdd  pmos114 w='W14_val' l='L14_val'
+   MP15   n_nbias b_n_g14       n_vdd   n_vdd  pmos114 w='W15_val' l='L15_val'
+   MN16   n_nbias n_nbias n_vss     n_vss  nmos114 w='W16_val' l='L16_val'
+   R13    b_n_g14       n_vss       'R13_val'
 
    
    *** Your Trans-impedance Amplifier here ***
@@ -128,8 +124,8 @@
    *** Your Bias Circuitry goes here ***
    * TBD: ideal current source for now
    * TBD: fill in the bias current value from calculating Ids through M3 and M1,6,9 in saturation
-   Vbn n_nbias 0 dc='Vbias_n_val'
-   VBp n_pbias 0 dc='Vbias_p_val'
+   Vbn n_nbias_ideal 0 dc='Vbias_n_val'
+   VBp n_pbias_ideal 0 dc='Vbias_p_val'
    
    *** defining the analysis ***
    .op

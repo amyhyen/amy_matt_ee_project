@@ -1,0 +1,29 @@
+* "simulator" "HSPICE" 
+* "version" "I-2013.12-SP2 64-BIT"
+* "format" "HSP"
+* "rundate" "22:55:38 11/28/2015 "
+* "netlist" "WINNER2.sp "
+* "runtitle" ""
+* time =    0.            
+* temperature =   25.0000        
+*** BEGIN: Saved Operating Point ***                     
+.option 
++ gmindc=   1.0000p       
+.nodeset
++ b_n_d11 =   1.2930        
++ b_n_d14 =  -2.4654        
++ b_n_g11 = 577.7599m       
++ b_n_g14 =  -1.1106        
++ n_4d =   1.5038        
++ n_in =  -1.3417        
++ n_nbias =  -1.1000        
++ n_nbias_float =  -1.7077        
++ n_pbias =   1.1000        
++ n_pbias_float =   1.5046        
++ n_vdd =   2.5000        
++ n_vout =-123.0125m       
++ n_vss =  -2.5000        
++ n_x =   1.2071        
++ n_y =  -1.2468        
++ n_z =   1.0536        
+***   END: Saved Operating Point ***                     

@@ -1,0 +1,41 @@
+***** HSPICE -- I-2013.12-SP2 64-BIT (May 27 2014) RHEL64 ******
+ Input File: WINNER3.sp
+ lic:
+ lic: FLEXlm: v10.9.8
+ lic: USER:   mattfel              HOSTNAME: corn12.stanford.edu
+ lic: HOSTID: 001b213a6521         PID:      3287
+ lic: Using FLEXlm license file:
+ lic: 27000@cadlic0
+ lic: Checkout 1 hspice
+ lic: License/Maintenance for hspice will expire on 09-jan-2016/2015.06
+ lic: 2(in_use)/200(total) FLOATING license(s) on SERVER 27000@cadlic0
+ lic:
+ init: begin read circuit files,  cpu clock=  6.80E-01
+       option post
+       option brief
+       option nomod
+ init: end read circuit files,  cpu clock=  6.80E-01 peak memory=       176 mb
+ init: begin check errors,  cpu clock=  6.80E-01
+ init: end check errors,  cpu clock=  6.90E-01 peak memory=       177 mb
+ init: begin setup matrix, pivot=     0 cpu clock=  6.90E-01
+       establish matrix -- done,  cpu clock=  6.90E-01 peak memory=       177 mb
+       re-order matrix -- done,  cpu clock=  6.90E-01 peak memory=       177 mb
+ init: end setup matrix,  cpu clock=  6.90E-01 peak memory=       177 mb
+ dcop: begin dcop,  cpu clock=  6.90E-01
+ dcop: end dcop,  cpu clock=  6.90E-01 peak memory=       177 mb  tot_iter=       8
+ output: WINNER3.ma0
+ sweep: ac ac0    begin, #sweeps=7001 cpu clock=  6.90E-01
+ ac: frequency=    1.00E+02
+ ac: frequency=    5.01E+02
+ ac: frequency=    2.51E+03
+ ac: frequency=    1.26E+04
+ ac: frequency=    6.31E+04
+ ac: frequency=    3.16E+05
+ ac: frequency=    1.58E+06
+ ac: frequency=    7.94E+06
+ ac: frequency=    3.98E+07
+ ac: frequency=    2.00E+08
+ ac: frequency=    1.00E+09
+ sweep: ac ac0    end,  cpu clock=  7.60E-01 peak memory=       178 mb
+>info:         ***** hspice job concluded
+ lic: Release hspice token(s)

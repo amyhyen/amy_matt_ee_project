@@ -71,32 +71,28 @@
    * Bias Circuitry - Vb_p
    .param W11_val = 30u
    .param L11_val = 2u
-   .param W12_val = 30u
+   .param W12_val = 6u
    .param L12_val = 2u
    .param W13_val = 2u
-   .param L13_val = 7u
-   .param R11_val = 500k
-   .param R12_val = 650k
-   MN11   b_n_d11       b_n_g11       0     0  nmos114 w='W11_val' l='L11_val'
-   MN12   n_pbias_float b_n_d11       b_n_g11   0  nmos114 w='W12_val' l='L12_val'
-   MP13   n_pbias_float n_pbias_float n_vdd     n_vdd  pmos114 w='W13_val' l='L13_val'
-   R11    n_vdd         b_n_d11       'R11_val'
-   R12    b_n_g11       0         'R12_val'
+   .param L13_val = 20u
+   .param R11_val = 1000000
+   MN11   b_n_g11  b_n_g11       n_vss           n_vss  nmos114 w='W11_val' l='L11_val'
+   MN12   n_pbias_float  b_n_g11      n_vss     n_vss  nmos114 w='W12_val' l='L12_val'
+   MP13   n_pbias_float  n_pbias_float n_vdd n_vdd  pmos114 w='W13_val' l='L13_val'
+   R11    n_vdd         b_n_g11       'R11_val'
    
    * Bias Circuitry - Vb_n
-   .param W14_val = 30u
+   .param W14_val = 14u
    .param L14_val = 2u
-   .param W15_val = 20u
+   .param W15_val = 4u 
    .param L15_val = 2u
    .param W16_val = 2u
-   .param L16_val = 2u
-   .param R13_val = 50k
-   .param R14_val = 500k
-   MP14   b_n_d14       b_n_g14       0     n_vdd  pmos114 w='W14_val' l='L14_val'
-   MP15   n_nbias_float b_n_d14       b_n_g14   n_vdd  pmos114 w='W15_val' l='L15_val'
+   .param L16_val = 20u
+   .param R13_val = 680000
+   MP14   b_n_g14       b_n_g14       n_vdd     n_vdd  pmos114 w='W14_val' l='L14_val'
+   MP15   n_nbias_float b_n_g14       n_vdd   n_vdd  pmos114 w='W15_val' l='L15_val'
    MN16   n_nbias_float n_nbias_float n_vss     n_vss  nmos114 w='W16_val' l='L16_val'
-   R13    b_n_d14       n_vss       'R13_val'
-   R14    0             b_n_g14         'R14_val'
+   R13    b_n_g14       n_vss       'R13_val'
 
    
    *** Your Trans-impedance Amplifier here ***
@@ -104,16 +100,16 @@
    * nmos b tied to lowest voltage
    * pmos b tied to highest voltage (or s)
    *** Vx/Iin = V(n_x) / Iin, use "n_x" as the node label for Vx ***
-   MN1    n_in    n_nbias      n_vss    n_vss    nmos114 w='W1_val'  l='L1_val'
+   MN1    n_in    n_nbias_float      n_vss    n_vss    nmos114 w='W1_val'  l='L1_val'
    MN2    n_x     0         n_in     n_vss    nmos114 w='W2_val'  l='L2_val'
-   MP3    n_x    n_pbias      n_vdd    n_vdd    pmos114 w='W3_val'  l='L3_val'
+   MP3    n_x    n_pbias_float      n_vdd    n_vdd    pmos114 w='W3_val'  l='L3_val'
    R1     n_x    n_vdd      'R1_val'
    R2     n_x    0          'R2_val'
    
    *** Vy/Vx = V(n_y) / V(n_x) use "n_y" as the node label for Vy ***
    MP4    n_4d    n_x      n_vdd    n_vdd    pmos114 w='W4_val'  l='L4_val'
    MP5    n_y    0          n_4d    n_vdd    pmos114 w='W5_val'  l='L5_val'
-   MN6    n_y    n_nbias      n_vss    n_vss    nmos114 w='W6_val'  l='L6_val'
+   MN6    n_y    n_nbias_float      n_vss    n_vss    nmos114 w='W6_val'  l='L6_val'
    R3     n_y    0          'R3_val'
    R4     n_y    n_vss      'R4_val'
    
@@ -122,15 +118,15 @@
    MP8    n_z    n_z      n_vdd    n_vdd    pmos114 w='W8_val'  l='L8_val'
    
    *** Vout/Vz = V(n_vout) / V(n_z) use "n_vout" as the node label for Vout ***
-   MN9    n_vout    n_nbias  n_vss    n_vss        nmos114 w='W9_val'  l='L9_val'
+   MN9    n_vout    n_nbias_float  n_vss    n_vss        nmos114 w='W9_val'  l='L9_val'
    MN10   n_vdd    n_z      n_vout    n_vss    nmos114 w='W10_val'  l='L10_val'
    
    *** Your Bias Circuitry goes here ***
    * TBD: ideal current source for now
    * TBD: fill in the bias current value from calculating Ids through M3 and M1,6,9 in saturation
    Vbn n_nbias 0 dc='Vbias_n_val'
-   VBp n_pbias 0 dc='Vbias_p_val'
-   
+   Vbp n_pbias 0 dc='Vbias_p_val'  
+ 
    *** defining the analysis ***
    .op
    .option post brief nomod
