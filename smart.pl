@@ -1,29 +1,37 @@
-$W1 = [17];
+$W2 = [30];
+$W3 = [30];
+$W4 = [2];
+$W8 = [2];
+$W9 = [30];
+$W10 = [30];
+
+$Vz = 1.2; #1,2 or bigger
+$W7_W8 = 1; # Can be anything?
+$Vx = 0.4; # Between 0.55 and 1.8
+$W4_W5 = 1; # Should be about 1
+$R1 = [50000];
+$R4 = [50000,80000];
+
 $L1 = [2];
-$W2 = [20];
 $L2 = [1];
-$W3 = [23]; 
 $L3 = [2];
-$W4 = [8]; 
 $L4 = [1];
-$W5 = [8];
 $L5 = [1];
-$W6 = [6]; 
 $L6 = [2];
-$W7 = [2];
 $L7 = [1];
-$W8 = [3];
 $L8 = [1];
-$W9 = [4];
 $L9 = [2];
-$W10 = [60];
 $L10 = [1];
-$R1 = [9400,9500,9600];
-$R2 = [15000,15200,15400]; 
-$R3 = [90000]; 
-$R4 = [68000]; #maybe bigger
-$Vp = [1.1];
-$Vn = [-1.1];
+
+#dummies
+$W1 = [0];
+$W5 = [0];
+$W6 = [0];
+$W7 = [0];
+$R2 = [0];
+$R3 = [0];
+$Vn = [0];
+$Vp = [0];
 
 # Init things
 $W = [undef, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2];
@@ -91,6 +99,18 @@ foreach (@$Vn) {
                          my $l1 = $_;
                          foreach (@$W1) {
                           my $w1 = $_;
+			  $w5 = $w4 * $W4_W5;
+			  $w7 = $w8 * $W7_W8;
+			  $Vy = sqrt((2 - $Vz)**2 / (2 * $W7_W8)) - 2;
+			  $R3_R4 = ($Vy / -2.5) / (1 - ($Vy/-2.5));
+			  $R2_R1 = ($Vx / 2.5) / (1 - ($Vx/2.5));
+			  $r3 = $r4 * $R3_R4;
+			  $r2 = $r1 * $R2_R1;
+			  $vn = $Vy + .3; # Between -1.85 and Vy+.5 (lower is better for BW)
+			  $vp = -$vn; # Between 1.85 and Vx-.5
+			  $w1 = 0.5 * $w3 * (2-$vp)**2 / (2+$vn)**2;
+			  $w6 = 0.5 * $w4 * (2-$Vx)**2 / (2+$vn)**2;
+
                           $W = [undef, $w1, $w2, $w3, $w4, $w5, $w6, $w7, $w8, $w9, $w10];
                           $L = [undef, $l1, $l2, $l3, $l4, $l5, $l6, $l7, $l8, $l9, $l10];
                           $R = [undef, $r1, $r2, $r3, $r4];
@@ -292,8 +312,8 @@ sub evaluate {
 	print_stats($iter);
    }
    else {
-	system ("rm iter${iter}.*");
-        system ("rm lis${iter}");
+	#system ("rm iter${iter}.*");
+        #system ("rm lis${iter}");
    }
    
    
