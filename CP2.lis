@@ -1,0 +1,238 @@
+ ****** HSPICE -- I-2013.12-SP2 64-BIT (May 27 2014) RHEL64 ******              
+  Copyright (C) 2014 Synopsys, Inc. All Rights Reserved.                        
+  Unpublished-rights reserved under US copyright laws.
+  This program is protected by law and is subject to the
+  terms and conditions of the license agreement from Synopsys.
+  Use of this program is your acceptance to be bound by the
+  license agreement. HSPICE is the trademark of Synopsys, Inc.
+  Input File: CP2_Matt_Feldman_Amy_Yen_1p9444_30019p0_96p6133_1489697.sp        
+  Command line options: CP2_Matt_Feldman_Amy_Yen_1p9444_30019p0_96p6133_1489697.sp
+ lic:  
+ lic: FLEXlm: v10.9.8 
+ lic: USER:   htyen                HOSTNAME: corn22.stanford.edu 
+ lic: HOSTID: 001b213a641d         PID:      24909 
+ lic: Using FLEXlm license file: 
+ lic: 27000@cadlic0 
+ lic: Checkout 1 hspice 
+ lic: License/Maintenance for hspice will expire on 09-jan-2016/2015.06 
+ lic: 2(in_use)/200(total) FLOATING license(s) on SERVER 27000@cadlic0 
+ lic:   
+  
+      
+ *****************************************************************
+ ******  option summary
+ ******
+ runlvl  = 3         bypass  = 2         
+ **info** dc convergence successful at Newton-Raphson method 
+ ****** HSPICE -- I-2013.12-SP2 64-BIT (May 27 2014) RHEL64 ******              
+ ******  
+ 
+
+ ****** operating point information tnom=  25.000 temp=  25.000 ******
+ ****** operating point status is all       simulation time is     0.     
+    node    =voltage      node    =voltage      node    =voltage
+
+ +0:b_n_g11 =  -1.8934  0:b_n_g14 =   1.7381  0:n_4d    =   1.5005 
+ +0:n_in    =  -1.3401  0:n_nbias =  -1.1033  0:n_pbias =   1.1058 
+ +0:n_vdd   =   2.5000  0:n_vout  =-114.4484m 0:n_vss   =  -2.5000 
+ +0:n_x     =   1.2114  0:n_y     =  -1.2556  0:n_z     =   1.0639 
+
+
+ **** voltage sources
+
+ subckt                        
+ element  0:vdd      0:vss     
+  volts      2.5000    -2.5000 
+  current -418.3824u  359.3964u
+  power      1.0460m  898.4910u
+
+     total voltage source power dissipation=    1.9444m       watts
+
+
+
+ **** current sources
+
+ subckt             
+ element  0:iin     
+  volts     -1.3401 
+  current    0.     
+  power      0.     
+
+
+     total current source power dissipation=   0.            watts
+
+ **** resistors
+
+ subckt                                                                    
+ element  0:rl       0:r1       0:r2       0:r3       0:r4       0:r11     
+  r value   20.0000k    9.4000k   15.4000k   90.0000k   68.0000k    1.0000x
+  v drop  -114.4484m   -1.2886     1.2114    -1.2556     1.2444     4.3934 
+  current   -5.7224u -137.0900u   78.6593u  -13.9509u   18.3003u    4.3934u
+  power    654.9219n  176.6605u   95.2843u   17.5165u   22.7732u   19.3017u
+
+ subckt             
+ element  0:r13     
+  r value  680.0000k
+  v drop     4.2381 
+  current    6.2324u
+  power     26.4134u
+
+
+
+ **** mosfets
+
+
+ subckt                                                                    
+ element  0:mn1      0:mn2      0:mp3      0:mp4      0:mp5      0:mn6     
+ model    0:nmos114. 0:nmos114. 0:pmos114. 0:pmos114. 0:pmos114. 0:nmos114.
+ region     Saturati   Saturati   Saturati   Saturati   Saturati   Saturati
+  id       180.7905u  180.7905u -122.3598u  -68.4126u  -68.4126u   64.0632u
+  ibs        0.       -11.5994f    0.         0.         9.9946f    0.     
+  ibd      -11.5994f  -37.1135f   12.8865f    9.9946f   37.5558f  -12.4442f
+  vgs        1.3967     1.3401    -1.3942    -1.2886    -1.5005     1.3967 
+  vds        1.1599     2.5514    -1.2886  -999.4597m   -2.7561     1.2444 
+  vbs        0.        -1.1599     0.         0.       999.4597m    0.     
+  vth      500.0000m  803.3305m -500.0000m -500.0000m -768.2073m  500.0000m
+  vdsat    896.7392m  536.7308m -894.2449m -788.6462m -732.3330m  896.7392m
+  vod      896.7392m  536.7308m -894.2449m -788.6462m -732.3330m  896.7392m
+  beta     449.6487u    1.2551m  306.0243u  219.9892u  255.1224u  159.3331u
+  gam eff  600.0000m  600.0000m  600.0000m  600.0000m  600.0000m  600.0000m
+  gm       403.2176u  673.6730u  273.6607u  173.4937u  186.8346u  142.8803u
+  gds        8.5440u   14.4040u    5.7477u    6.2196u    5.3631u    3.0155u
+  gmb      135.2433u  144.3608u   91.7886u   58.1915u   41.7838u   47.9235u
+  cdtot     20.8807f   20.5562f   32.8157f   12.9159f   10.1926f    8.7817f
+  cgtot     69.6830f   51.1149f   94.2968f   20.4055f   20.4237f   24.5971f
+  cstot     77.2336f   54.6833f  112.8837f   28.3667f   25.1581f   29.2001f
+  cbtot     29.2883f   24.7077f   52.5652f   21.1057f   15.1058f   13.6872f
+  cgs       60.6336f   40.6668f   82.0337f   16.2667f   16.2667f   21.4001f
+  cgd        8.6209f   10.1565f   11.6818f    4.0245f    4.0676f    3.0458f
+
+
+
+ subckt                                                                    
+ element  0:mn7      0:mp8      0:mn9      0:mn10     0:mn11     0:mn12    
+ model    0:nmos114. 0:pmos114. 0:nmos114. 0:nmos114. 0:nmos114. 0:nmos114.
+ region     Saturati   Saturati   Saturati   Saturati   Saturati   Saturati
+  id        37.5828u  -37.5828u   45.0029u   39.2804u    4.3934u    1.0066u
+  ibs        0.         0.         0.       -23.8555f    0.         0.     
+  ibd      -35.6386f   14.3614f  -23.8555f  -50.0000f   -6.0663f  -36.0576f
+  vgs        1.2444    -1.4361     1.3967     1.1783   606.6337m  606.6337m
+  vds        3.5639    -1.4361     2.3856     2.6144   606.6337m    3.6058 
+  vbs        0.         0.         0.        -2.3856     0.         0.     
+  vth      500.0000m -500.0000m  500.0000m    1.0342   500.0000m  500.0000m
+  vdsat    744.4194m -936.1363m  896.7392m  144.0816m  106.6337m  106.6337m
+  vod      744.4194m -936.1363m  896.7392m  144.0816m  106.6337m  106.6337m
+  beta     135.6386u   85.7710u  111.9278u    3.7843m  772.7488u  177.0432u
+  gam eff  600.0000m  600.0000m  600.0000m  600.0000m  600.0000m  600.0000m
+  gm       100.9720u   80.2934u  100.3700u  545.2529u   82.4011u   18.8788u
+  gds        2.7708u    3.2863u    2.0104u    3.1139u  213.2015n   42.6403n
+  gmb       33.8670u   26.9312u   33.6651u   91.6488u   27.6382u    6.3321u
+  cdtot      3.6888f    5.5413f    6.0024f   55.6859f   37.4358f    7.5313f
+  cgtot      5.1188f    7.6495f   16.4261f  154.9020f  127.5863f   25.6276f
+  cstot      8.6667f   11.9500f   20.4667f  153.4097f  134.0005f   29.2001f
+  cbtot      7.2972f    9.9143f   10.2447f   59.0346f   54.7984f   13.2934f
+  cgs        4.0667f    6.1000f   14.2667f  122.0005f  107.0005f   21.4001f
+  cgd        1.0219f    1.5132f    2.0585f   30.4811f   15.1116f    3.1327f
+
+
+
+ subckt                                              
+ element  0:mp13     0:mp14     0:mp15     0:mn16    
+ model    0:pmos114. 0:pmos114. 0:pmos114. 0:nmos114.
+ region     Saturati   Saturati   Saturati   Saturati
+  id        -1.0066u   -6.2324u   -2.0244u    2.0244u
+  ibs        0.         0.         0.         0.     
+  ibd       13.9424f    7.6194f   36.0326f  -13.9674f
+  vgs       -1.3942  -761.9425m -761.9425m    1.3967 
+  vds       -1.3942  -761.9425m   -3.6033     1.3967 
+  vbs        0.         0.         0.         0.     
+  vth     -500.0000m -500.0000m -500.0000m  500.0000m
+  vdsat   -894.2449m -261.9425m -261.9425m  896.7392m
+  vod     -894.2449m -261.9425m -261.9425m  896.7392m
+  beta       2.5174u  181.6670u   59.0082u    5.0349u
+  gam eff  600.0000m  600.0000m  600.0000m  600.0000m
+  gm         2.2512u   47.5863u   15.4567u    4.5150u
+  gds        4.9980n  300.1856n   85.7673n   10.0518n
+  gmb      755.0745n   15.9609u    5.1843u    1.5144u
+  cdtot      4.3952f   22.2152f    5.8195f    4.5210f
+  cgtot     64.0102f   58.1464f   16.6830f   64.0091f
+  cstot     66.9336f   69.5335f   21.3667f   66.9336f
+  cbtot      8.3296f   35.8972f   11.1590f    8.4538f
+  cgs       62.3336f   49.9335f   14.2667f   62.3336f
+  cgd        1.1710f    7.0654f    2.0884f    1.1713f
+
+
+
+ ******  
+ 
+
+ ****** ac analysis tnom=  25.000 temp=  25.000 ******
+ gainmax_vout=  89.5481     at=   1.5066k
+             from= 100.0000     to=   1.0000g
+ f3db_vout=  96.6133x
+ gainmax_vx=  74.9414     at=   1.7620k
+             from= 100.0000     to=   1.0000g
+ f3db_vx= 200.5466x
+ gainmax_vy=  90.2599     at=   1.3964k
+             from= 100.0000     to=   1.0000g
+ f3db_vy= 114.4222x
+ gainmax_vz=  91.6186     at=   1.6069k
+             from= 100.0000     to=   1.0000g
+ f3db_vz= 104.9846x
+
+          ***** job concluded
+ ****** HSPICE -- I-2013.12-SP2 64-BIT (May 27 2014) RHEL64 ******              
+ ******  
+ 
+
+ ****** job statistics summary tnom=  25.000 temp=  25.000 ******
+  
+  
+ ******  Machine Information  ******
+ CPU:
+ model name	: Quad-Core AMD Opteron(tm) Processor 2384
+ cpu MHz	: 2700.000
+  
+ OS:
+ Linux version 3.13.0-45-generic (buildd@phianna) (gcc version 4.8.2 (Ubuntu 4.8.2-19ubuntu1) ) #74-Ubuntu SMP Tue Jan 13 19:36:28 UTC 2015
+
+
+  ******  HSPICE Threads Information  ******
+
+  Command Line Threads Count :     1
+  Available CPU Count        :     8
+  Actual Threads Count       :     1
+
+
+  ******  Circuit Statistics  ******
+  # nodes       =      13 # elements   =      28
+  # resistors   =       7 # capacitors =       2 # inductors   =       0
+  # mutual_inds =       0 # vccs       =       0 # vcvs        =       0
+  # cccs        =       0 # ccvs       =       0 # volt_srcs   =       2
+  # curr_srcs   =       1 # diodes     =       0 # bjts        =       0
+  # jfets       =       0 # mosfets    =      16 # U elements  =       0
+  # T elements  =       0 # W elements =       0 # B elements  =       0
+  # S elements  =       0 # P elements =       0 # va device   =       0
+  # vector_srcs =       0 # N elements =       0
+
+
+  ******  Runtime Statistics (seconds)  ******
+
+  analysis           time    # points   tot. iter  conv.iter
+  op point           0.00           1          14
+  ac analysis        0.06        7001        7001
+  readin             0.02
+  errchk             0.01
+  setup              0.00
+  output             0.00
+
+
+           peak memory used        186.53 megabytes
+           total cpu time            0.10 seconds
+           total elapsed time        1.18 seconds
+           job started at     20:07:35 11/29/2015
+           job ended   at     20:07:36 11/29/2015
+
+
+ lic: Release hspice token(s) 
+ lic: total license checkout elapse time:        1.02(s)
